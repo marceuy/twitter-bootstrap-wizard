@@ -68,14 +68,15 @@ var bootstrapWizardCreate = function(element, options) {
 			return false;
 		}
 
-		var formerIndex = obj.currentIndex();
 		$index = obj.nextIndex();
 
 	  // Did we click the last button
 		if($index > obj.navigationLength()) {
 		} else {
-		  historyStack.push(formerIndex);
-		  $navigation.find(baseItemSelector + ':eq(' + $index + ') a').tab('show');
+			$navigation.find('li:eq('+$index+') a').tab('show');
+			$activeTab = $navigation.find('li.active', element);
+			$($settings.previousSelector, element).toggleClass('disabled', (obj.firstIndex() >= obj.currentIndex()));
+			$($settings.nextSelector, element).toggleClass('disabled', (obj.currentIndex() >= obj.navigationLength()));
 		}
 	};
 
@@ -89,13 +90,14 @@ var bootstrapWizardCreate = function(element, options) {
 			return false;
 		}
 
-		var formerIndex = obj.currentIndex();
 		$index = obj.previousIndex();
 
 		if($index < 0) {
 		} else {
-		  historyStack.push(formerIndex);
-		  $navigation.find(baseItemSelector + ':eq(' + $index + ') a').tab('show');
+			$navigation.find('li:eq('+$index+') a').tab('show');
+			$activeTab = $navigation.find('li.active', element);
+			$($settings.previousSelector, element).toggleClass('disabled', (obj.firstIndex() >= obj.currentIndex()));
+			$($settings.nextSelector, element).toggleClass('disabled', (obj.currentIndex() >= obj.navigationLength()));
 		}
 	};
 
